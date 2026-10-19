@@ -1,0 +1,11 @@
+litellm
+sentence-transformers
+chromadb
+rank_bm25
+tiktoken
+pandas
+tabulate
+matplotlib
+streamlit
+python-dotenv
+tqdm
