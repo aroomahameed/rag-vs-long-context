@@ -2,14 +2,14 @@ An alias is an alternative name for a field, used when serializing and deseriali
 
 You can specify an alias in the following ways:
 
-* `alias` on the [`Field`][pydantic.fields.Field]
-    * must be a `str`
-* `validation_alias` on the [`Field`][pydantic.fields.Field]
-    * can be an instance of `str`, [`AliasPath`][pydantic.aliases.AliasPath], or [`AliasChoices`][pydantic.aliases.AliasChoices]
-* `serialization_alias` on the [`Field`][pydantic.fields.Field]
-    * must be a `str`
-* `alias_generator` on the [`Config`][pydantic.config.ConfigDict.alias_generator]
-    * can be a callable or an instance of [`AliasGenerator`][pydantic.aliases.AliasGenerator]
+- `alias` on the [`Field`][pydantic.fields.Field]
+  - must be a `str`
+- `validation_alias` on the [`Field`][pydantic.fields.Field]
+  - can be an instance of `str`, [`AliasPath`][pydantic.aliases.AliasPath], or [`AliasChoices`][pydantic.aliases.AliasChoices]
+- `serialization_alias` on the [`Field`][pydantic.fields.Field]
+  - must be a `str`
+- `alias_generator` on the [`Config`][pydantic.config.ConfigDict.alias_generator]
+  - can be a callable or an instance of [`AliasGenerator`][pydantic.aliases.AliasGenerator]
 
 For examples of how to use `alias`, `validation_alias`, and `serialization_alias`, see [Field aliases](../concepts/fields.md#field-aliases).
 
@@ -104,7 +104,7 @@ This is useful if you want to use a consistent naming convention for all fields 
 want to specify the alias for each field individually.
 
 !!! note
-    Pydantic offers three built-in alias generators that you can use out of the box:
+Pydantic offers three built-in alias generators that you can use out of the box:
 
     [`to_pascal`][pydantic.alias_generators.to_pascal]<br>
     [`to_camel`][pydantic.alias_generators.to_camel]<br>
@@ -199,11 +199,11 @@ print(voice.model_dump(by_alias=True))
 
 You may set `alias_priority` on a field to change this behavior:
 
-* `alias_priority=2` the alias will *not* be overridden by the alias generator.
-* `alias_priority=1` the alias *will* be overridden by the alias generator.
-* `alias_priority` not set:
-    * alias is set: the alias will *not* be overridden by the alias generator.
-    * alias is not set: the alias *will* be overridden by the alias generator.
+- `alias_priority=2` the alias will _not_ be overridden by the alias generator.
+- `alias_priority=1` the alias _will_ be overridden by the alias generator.
+- `alias_priority` not set:
+  - alias is set: the alias will _not_ be overridden by the alias generator.
+  - alias is not set: the alias _will_ be overridden by the alias generator.
 
 The same precedence applies to `validation_alias` and `serialization_alias`.
 See more about the different field aliases under [field aliases](../concepts/fields.md#field-aliases).
@@ -224,8 +224,8 @@ this behavior for nested models/surpassing the config-model boundary, use [runti
 When validating data, you can enable population of attributes by attribute name, alias, or both.
 **By default**, Pydantic uses aliases for validation. Further configuration is available via:
 
-* [`ConfigDict.validate_by_alias`][pydantic.config.ConfigDict.validate_by_alias]: `True` by default
-* [`ConfigDict.validate_by_name`][pydantic.config.ConfigDict.validate_by_name]: `False` by default
+- [`ConfigDict.validate_by_alias`][pydantic.config.ConfigDict.validate_by_alias]: `True` by default
+- [`ConfigDict.validate_by_name`][pydantic.config.ConfigDict.validate_by_name]: `False` by default
 
 === "`validate_by_alias`"
 
@@ -286,8 +286,8 @@ When validating data, you can enable population of attributes by attribute name,
     2. the attribute identifier `my_field` is used for validation.
 
 !!! warning
-    You cannot set both `validate_by_alias` and `validate_by_name` to `False`.
-    A [user error](../errors/usage_errors.md#validate-by-alias-and-name-false) is raised in this case.
+You cannot set both `validate_by_alias` and `validate_by_name` to `False`.
+A [user error](../errors/usage_errors.md#validate-by-alias-and-name-false) is raised in this case.
 
 #### Serialization
 
@@ -313,8 +313,8 @@ print(m.model_dump())  # (1)!
 1. The alias `my_alias` is used for serialization.
 
 !!! note
-    The fact that serialization by alias is disabled by default is notably inconsistent with the default for
-    validation (where aliases are used by default). We anticipate changing this default in V3.
+The fact that serialization by alias is disabled by default is notably inconsistent with the default for
+validation (where aliases are used by default). We anticipate changing this default in V3.
 
 ### Runtime Settings
 
@@ -331,8 +331,8 @@ The `by_alias` and `by_name` flags are available on the [`model_validate()`][pyd
 
 By default:
 
-* `by_alias` is `True`
-* `by_name` is `False`
+- `by_alias` is `True`
+- `by_name` is `False`
 
 === "`by_alias`"
 
@@ -401,8 +401,8 @@ By default:
     2. The attribute name `my_field` is used for validation.
 
 !!! warning
-    You cannot set both `by_alias` and `by_name` to `False`.
-    A [user error](../errors/usage_errors.md#validate-by-alias-and-name-false) is raised in this case.
+You cannot set both `by_alias` and `by_name` to `False`.
+A [user error](../errors/usage_errors.md#validate-by-alias-and-name-false) is raised in this case.
 
 #### Serialization
 
@@ -429,5 +429,5 @@ print(m.model_dump(by_alias=True))  # (1)!
 1. The alias `my_alias` is used for serialization.
 
 !!! note
-    The fact that serialization by alias is disabled by default is notably inconsistent with the default for
-    validation (where aliases are used by default). We anticipate changing this default in V3.
+The fact that serialization by alias is disabled by default is notably inconsistent with the default for
+validation (where aliases are used by default). We anticipate changing this default in V3.

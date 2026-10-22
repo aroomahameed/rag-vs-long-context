@@ -3,8 +3,8 @@ serialized, and exported in a number of ways. Serialization can be customized fo
 or per-type basis.
 
 ??? abstract "Serialize versus dump"
-    Pydantic uses the terms "serialize" and "dump" interchangeably. Both refer to the process of converting a model to a
-    dictionary or JSON-encoded string.
+Pydantic uses the terms "serialize" and "dump" interchangeably. Both refer to the process of converting a model to a
+dictionary or JSON-encoded string.
 
     Outside of Pydantic, the word "serialize" usually refers to converting in-memory data into a string or bytes.
     However, in the context of Pydantic, there is a very close relationship between converting an object from a more
@@ -16,7 +16,7 @@ or per-type basis.
     to refer to both of these situations, even though it does not always imply conversion to a string or bytes.
 
 !!! tip
-    Want to quickly jump to the relevant serializer section?
+Want to quickly jump to the relevant serializer section?
 
     <div class="grid cards" markdown>
 
@@ -38,12 +38,13 @@ or per-type basis.
 
 ## Serializing data
 
-Pydantic allows models (and any other type using [type adapters](./type_adapter.md)) to be serialized in *two* modes:
+Pydantic allows models (and any other type using [type adapters](./type_adapter.md)) to be serialized in _two_ modes:
 [Python](#python-mode) and [JSON](#json-mode). The Python output may contain non-JSON serializable data (although this
 can be emulated).
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#modelmodel_dump}
 
 ### Python mode
@@ -86,10 +87,11 @@ print(m.model_dump(mode='json'))
 ```
 
 !!! info "See also"
-    The [`TypeAdapter.dump_python()`][pydantic.TypeAdapter.dump_python] method, useful when *not* dealing with Pydantic models.
+The [`TypeAdapter.dump_python()`][pydantic.TypeAdapter.dump_python] method, useful when _not_ dealing with Pydantic models.
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#modelmodel_dump_json}
 
 ### JSON mode
@@ -140,16 +142,17 @@ instrumented your application, in the context of the request that triggered it, 
 occurrences so you can tell a one-off from a recurring problem.
 
 !!! info "See also"
-    The [`TypeAdapter.dump_json()`][pydantic.TypeAdapter.dump_json] method, useful when *not* dealing with Pydantic models.
+The [`TypeAdapter.dump_json()`][pydantic.TypeAdapter.dump_json] method, useful when _not_ dealing with Pydantic models.
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#dictmodel-and-iteration}
 
 ## Iterating over models
 
 Pydantic models can also be iterated over, yielding `(field_name, field_value)` pairs. Note that field values
-are left as is, so sub-models will *not* be converted to dictionaries:
+are left as is, so sub-models will _not_ be converted to dictionaries:
 
 ```python {group="iterating-model"}
 from pydantic import BaseModel
@@ -182,10 +185,11 @@ print(dict(m))
 ```
 
 !!! note
-    [Root models](models.md#rootmodel-and-custom-root-types) *does* get converted to a dictionary with the key `'root'`.
+[Root models](models.md#rootmodel-and-custom-root-types) _does_ get converted to a dictionary with the key `'root'`.
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#pickledumpsmodel}
 
 ## Pickling support
@@ -193,6 +197,7 @@ print(dict(m))
 Pydantic models support efficient pickling and unpickling.
 
 <!-- TODO need to get pickling doctest to work -->
+
 ```python {test="skip"}
 import pickle
 
@@ -217,6 +222,7 @@ print(m2)
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#custom-serializers}
 
 ## Serializers
@@ -225,15 +231,15 @@ Similar to [custom validators](./validators.md), you can leverage custom seriali
 control the serialization behavior.
 
 !!! warning
-    Only *one* serializer can be defined per field/model. It is not possible to combine multiple serializers together
-    (including *plain* and *wrap* serializers).
+Only _one_ serializer can be defined per field/model. It is not possible to combine multiple serializers together
+(including _plain_ and _wrap_ serializers).
 
 ### Field serializers
 
 ??? api "API Documentation"
-    [`pydantic.functional_serializers.PlainSerializer`][pydantic.functional_serializers.PlainSerializer]<br>
-    [`pydantic.functional_serializers.WrapSerializer`][pydantic.functional_serializers.WrapSerializer]<br>
-    [`pydantic.functional_serializers.field_serializer`][pydantic.functional_serializers.field_serializer]<br>
+[`pydantic.functional_serializers.PlainSerializer`][pydantic.functional_serializers.PlainSerializer]<br>
+[`pydantic.functional_serializers.WrapSerializer`][pydantic.functional_serializers.WrapSerializer]<br>
+[`pydantic.functional_serializers.field_serializer`][pydantic.functional_serializers.field_serializer]<br>
 
 In its simplest form, a field serializer is a callable taking the value to be serialized as an argument and
 **returning the serialized value**.
@@ -245,11 +251,11 @@ it will be used to build an extra serializer, to ensure that the serialized fiel
 [annotated pattern](./fields.md#the-annotated-pattern) or using the
 [`@field_serializer`][pydantic.field_serializer] decorator, applied on instance or [static methods][staticmethod].
 
-* ***Plain* serializers**: are called unconditionally to serialize a field. The serialization logic for types supported
-  by Pydantic will *not* be called. Using such serializers is also useful to specify the logic for arbitrary types.
+- **_Plain_ serializers**: are called unconditionally to serialize a field. The serialization logic for types supported
+  by Pydantic will _not_ be called. Using such serializers is also useful to specify the logic for arbitrary types.
   {#field-plain-serializer}
 
-    === "Annotated pattern"
+  === "Annotated pattern"
 
         ```python
         from typing import Annotated, Any
@@ -278,7 +284,7 @@ it will be used to build an extra serializer, to ensure that the serialized fiel
 
         1. Pydantic will *not* validate that the serialized value complies with the `int` type.
 
-    === "Decorator"
+  === "Decorator"
 
         ```python
         from typing import Any
@@ -308,15 +314,15 @@ it will be used to build an extra serializer, to ensure that the serialized fiel
         1. `'plain'` is the default mode for the decorator, and can be omitted.
         2. Pydantic will *not* validate that the serialized value complies with the `int` type.
 
-* ***Wrap* serializers**: give more flexibility to customize the serialization behavior. You can run code before or after
+- **_Wrap_ serializers**: give more flexibility to customize the serialization behavior. You can run code before or after
   the Pydantic serialization logic.
   {#field-wrap-serializer}
 
-    Such serializers must be defined with a **mandatory** extra *handler* parameter: a callable taking the value to be serialized
-    as an argument. Internally, this handler will delegate serialization of the value to Pydantic. You are free to *not* call the
-    handler at all.
+  Such serializers must be defined with a **mandatory** extra _handler_ parameter: a callable taking the value to be serialized
+  as an argument. Internally, this handler will delegate serialization of the value to Pydantic. You are free to _not_ call the
+  handler at all.
 
-    === "Annotated pattern"
+  === "Annotated pattern"
 
         ```python
         from typing import Annotated, Any
@@ -336,7 +342,7 @@ it will be used to build an extra serializer, to ensure that the serialized fiel
         #> {'number': 5}
         ```
 
-    === "Decorator"
+  === "Decorator"
 
         ```python
         from typing import Any
@@ -415,9 +421,9 @@ class Model(BaseModel):
 
 Here are a couple additional notes about the decorator usage:
 
-* If you want the serializer to apply to all fields (including the ones defined in subclasses), you can pass
+- If you want the serializer to apply to all fields (including the ones defined in subclasses), you can pass
   `'*'` as the field name argument.
-* By default, the decorator will ensure the provided field name(s) are defined on the model. If you want to
+- By default, the decorator will ensure the provided field name(s) are defined on the model. If you want to
   disable this check during class creation, you can do so by passing `False` to the `check_fields` argument.
   This is useful when the field serializer is defined on a base class, and the field is expected to exist on
   subclasses.
@@ -425,7 +431,7 @@ Here are a couple additional notes about the decorator usage:
 ### Model serializers
 
 ??? api "API Documentation"
-    [`pydantic.functional_serializers.model_serializer`][pydantic.functional_serializers.model_serializer]<br>
+[`pydantic.functional_serializers.model_serializer`][pydantic.functional_serializers.model_serializer]<br>
 
 Serialization can also be customized on the entire model using the [`@model_serializer`][pydantic.model_serializer]
 decorator.
@@ -436,38 +442,38 @@ to ensure that the serialized model value complies with this return type.
 
 As with [field serializers](#field-serializers), **two** different types of model serializers can be used:
 
-* ***Plain* serializers**: are called unconditionally to serialize the model.
+- **_Plain_ serializers**: are called unconditionally to serialize the model.
   {#model-plain-serializer}
 
-    ```python
-    from pydantic import BaseModel, model_serializer
+  ```python
+  from pydantic import BaseModel, model_serializer
 
 
-    class UserModel(BaseModel):
-        username: str
-        password: str
+  class UserModel(BaseModel):
+      username: str
+      password: str
 
-        @model_serializer(mode='plain')  # (1)!
-        def serialize_model(self) -> str:  # (2)!
-            return f'{self.username} - {self.password}'
+      @model_serializer(mode='plain')  # (1)!
+      def serialize_model(self) -> str:  # (2)!
+          return f'{self.username} - {self.password}'
 
 
-    print(UserModel(username='foo', password='bar').model_dump())
-    #> foo - bar
-    ```
+  print(UserModel(username='foo', password='bar').model_dump())
+  #> foo - bar
+  ```
 
       1. `'plain'` is the default mode for the decorator, and can be omitted.
       2. You are free to return a value that *isn't* a dictionary. However, note that this may cause
          type checking issues (as the return type of [`model_dump()`][pydantic.main.BaseModel.model_dump]
          is `dict[str, Any]`).
 
-* ***Wrap* serializers**: give more flexibility to customize the serialization behavior. You can run code before or after
+- **_Wrap_ serializers**: give more flexibility to customize the serialization behavior. You can run code before or after
   the Pydantic serialization logic.
   {#model-wrap-serializer}
 
-    Such serializers must be defined with a **mandatory** extra *handler* parameter: a callable taking the instance of the model
-    as an argument. Internally, this handler will delegate serialization of the model to Pydantic. You are free to *not* call the
-    handler at all.
+  Such serializers must be defined with a **mandatory** extra _handler_ parameter: a callable taking the instance of the model
+  as an argument. Internally, this handler will delegate serialization of the model to Pydantic. You are free to _not_ call the
+  handler at all.
 
       ```python
       from pydantic import BaseModel, SerializerFunctionWrapHandler, model_serializer
@@ -495,11 +501,11 @@ As with [field serializers](#field-serializers), **two** different types of mode
 Both the field and model serializers callables (in all modes) can optionally take an extra `info` argument,
 providing useful extra information, such as:
 
-* [user defined context](#serialization-context)
-* the current serialization mode: either `'python'` or `'json'` (see the [`mode`][pydantic.SerializationInfo.mode] property)
-* the various parameters set during serialization using the [serialization methods](#serializing-data)
+- [user defined context](#serialization-context)
+- the current serialization mode: either `'python'` or `'json'` (see the [`mode`][pydantic.SerializationInfo.mode] property)
+- the various parameters set during serialization using the [serialization methods](#serializing-data)
   (e.g. [`exclude_unset`][pydantic.SerializationInfo.exclude_unset], [`serialize_as_any`][pydantic.SerializationInfo.serialize_as_any])
-* the current field name, if using a [field serializer](#field-serializers) (see the
+- the current field name, if using a [field serializer](#field-serializers) (see the
   [`field_name`][pydantic.FieldSerializationInfo.field_name] property).
 
 ### Serialization context
@@ -536,6 +542,7 @@ Similarly, you can [use a context for validation](../concepts/validators.md#vali
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#subclasses-of-standard-types}
 
 ### Subclasses of supported types
@@ -565,6 +572,7 @@ print(m.model_dump_json())
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#subclass-instances-for-fields-of-basemodel-dataclasses-typeddict}
 
 ### Subclasses of model-like types
@@ -602,15 +610,16 @@ print(m.model_dump())  # (1)!
 1. Note: the password field is not included
 
 !!! warning "Migration Warning"
-    This behavior is different from how things worked in Pydantic V1, where we would always include
-    all (subclass) fields when recursively serializing models to dictionaries. The motivation behind this change
-    in behavior is that it helps ensure that you know precisely which fields could be included when serializing,
-    even if subclasses get passed when instantiating the object. In particular, this can help prevent surprises
-    when adding sensitive information like secrets as fields of subclasses. To enable the old V1 behavior, refer
-    to the next section.
+This behavior is different from how things worked in Pydantic V1, where we would always include
+all (subclass) fields when recursively serializing models to dictionaries. The motivation behind this change
+in behavior is that it helps ensure that you know precisely which fields could be included when serializing,
+even if subclasses get passed when instantiating the object. In particular, this can help prevent surprises
+when adding sensitive information like secrets as fields of subclasses. To enable the old V1 behavior, refer
+to the next section.
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#serializing-with-duck-typing}
 
 ### Polymorphic serialization
@@ -626,22 +635,22 @@ This will expose all the data defined on the subclass in the serialized payload.
 
 This behavior can be configured in the following ways:
 
-* Configuration level: use the [`polymorphic_serialization`][pydantic.config.ConfigDict.polymorphic_serialization] setting
+- Configuration level: use the [`polymorphic_serialization`][pydantic.config.ConfigDict.polymorphic_serialization] setting
   in the model/dataclass [configuration](./config.md). The configuration should be set on the class that should be polymorphic,
   not on the class that references polymorphic classes.
 
-* Runtime level: use the `polymorphic_serialization` argument when calling the [serialization methods](#serializing-data).
+- Runtime level: use the `polymorphic_serialization` argument when calling the [serialization methods](#serializing-data).
   This will apply to all (nested) types, overriding any configuration.
 
 !!! note "Duck-typed serialization"
-    This behavior (and the ["any" serialization](#serializing-as-any) discussed below) was previously referred
-    to as duck-typed serialization. This was a misnomer; it did not function like
-    [duck typing](https://en.wikipedia.org/wiki/Duck_typing) in the conventional programming language sense.
+This behavior (and the ["any" serialization](#serializing-as-any) discussed below) was previously referred
+to as duck-typed serialization. This was a misnomer; it did not function like
+[duck typing](https://en.wikipedia.org/wiki/Duck_typing) in the conventional programming language sense.
 
 !!! warning Polymorphic serialization of standard library dataclasses
-    Polymorphic serialization is only supported for Pydantic models and [Pydantic dataclasses](./dataclasses.md).
-    When using [standard library dataclasses][dataclasses], polymorphic serialization is *not* supported,
-    even if the dataclass is a subclass of a Pydantic dataclass. This may be fixed in a future Pydantic release.
+Polymorphic serialization is only supported for Pydantic models and [Pydantic dataclasses](./dataclasses.md).
+When using [standard library dataclasses][dataclasses], polymorphic serialization is _not_ supported,
+even if the dataclass is a subclass of a Pydantic dataclass. This may be fixed in a future Pydantic release.
 
 The example below defines a type `User` and a subclass of it, `UserLogin`. A second pair of types, `PolymorphicUser`
 and `PolymorphicUserLogin` are defined as equivalents with `polymorphic_serialization` enabled.
@@ -689,23 +698,23 @@ causes the `UserLogin` value to serialize just as a `User` value, ignoring the s
 ## Serializing "as Any"
 
 A more extreme form of [polymorphic serialization](#polymorphic-serialization) is "any" serialization. In this
-mode, Pydantic does *not* make use of any type annotation (more precisely, the serialization schema derived from
+mode, Pydantic does _not_ make use of any type annotation (more precisely, the serialization schema derived from
 the type) to infer how the value should be serialized, but instead inspects the actual type of the value at runtime
-to do so (and this applies to *all* types, not only Pydantic models and dataclasses).
+to do so (and this applies to _all_ types, not only Pydantic models and dataclasses).
 
 This means that every value will be serialized exactly based on its runtime type and any knowledge Pydantic has
 of how to serialize the type. Pydantic can infer how to serialize the following types:
 
-* Many Python standard library types (exact set may be expanded depending on Pydantic version).
-* Types with a `__pydantic_serializer__` attribute.
-* Any type serializable with the `fallback` function passed as an argument to [serialization methods](#serializing-data).
+- Many Python standard library types (exact set may be expanded depending on Pydantic version).
+- Types with a `__pydantic_serializer__` attribute.
+- Any type serializable with the `fallback` function passed as an argument to [serialization methods](#serializing-data).
 
 In most cases, you will want to use the [polymorphic serialization](#polymorphic-serialization) behavior instead.
 
 This behavior can be configured at the field level and at runtime, for a specific serialization call:
 
-* Field level: use the [`SerializeAsAny`][pydantic.functional_serializers.SerializeAsAny] annotation.
-* Runtime level: use the `serialize_as_any` argument when calling the [serialization methods](#serializing-data).
+- Field level: use the [`SerializeAsAny`][pydantic.functional_serializers.SerializeAsAny] annotation.
+- Runtime level: use the `serialize_as_any` argument when calling the [serialization methods](#serializing-data).
 
 These options are discussed below in more detail.
 
@@ -790,21 +799,24 @@ print(outer_model.model_dump(serialize_as_any=False))  # (2)!
 2. With `serialize_as_any` set to `False` (the V2 default), fields present on the subclass,
    but not the base class, are not included in serialization.
 
-However, do note that the *serialize as any* behavior will apply to *all* values, not only the values where duck typing
+However, do note that the _serialize as any_ behavior will apply to _all_ values, not only the values where duck typing
 is relevant. You may want to prefer using the `SerializeAsAny` annotation when required instead.
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#advanced-include-and-exclude}
+
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#model-and-field-level-include-and-exclude}
 
 ## Field inclusion and exclusion
 
 For serialization, field inclusion and exclusion can be configured in two ways:
 
-* at the field level, using the `exclude` and `exclude_if` parameters on [the `Field()` function](fields.md).
-* using the various serialization parameters on the [serialization methods](#serializing-data).
+- at the field level, using the `exclude` and `exclude_if` parameters on [the `Field()` function](fields.md).
+- using the various serialization parameters on the [serialization methods](#serializing-data).
 
 ### At the field level
 
@@ -877,7 +889,7 @@ print(t.model_dump(include={'id': True, 'user': {'id'}}))
 #> {'id': '1234567890', 'user': {'id': 42}}
 ```
 
-Note that using `False` to *include* a field in `exclude` (or to *exclude* a field in `include`) is not supported.
+Note that using `False` to _include_ a field in `exclude` (or to _exclude_ a field in `include`) is not supported.
 
 It is also possible to exclude or include specific items from sequence and dictionaries:
 
@@ -914,11 +926,11 @@ print(user.model_dump(exclude={'hobbies': {-1: {'info'}}}))  # (1)!
 
 1. The equivalent call with `include` would be:
 
-     ```python {lint="skip" group="advanced-include-exclude"}
-     user.model_dump(
-        include={'hobbies': {0: True, -1: {'name'}}}
-     )
-     ```
+   ```python {lint="skip" group="advanced-include-exclude"}
+   user.model_dump(
+      include={'hobbies': {0: True, -1: {'name'}}}
+   )
+   ```
 
 The special key `'__all__'` can be used to apply an exclusion/inclusion pattern to all members:
 
@@ -932,39 +944,39 @@ print(user.model_dump(exclude={'hobbies': {'__all__': {'info'}}}))
 When using the [serialization methods](#serializing-data), it is possible to exclude fields based on their value,
 using the following parameters:
 
-* `exclude_defaults`: Exclude all fields whose value compares equal to the default value
+- `exclude_defaults`: Exclude all fields whose value compares equal to the default value
   (using the equality (`==`) comparison operator).
-* `exclude_none`: Exclude all fields whose value is `None`.
-* `exclude_unset`: Pydantic keeps track of fields that were *explicitly* set during instantiation (using the
+- `exclude_none`: Exclude all fields whose value is `None`.
+- `exclude_unset`: Pydantic keeps track of fields that were _explicitly_ set during instantiation (using the
   [`model_fields_set`][pydantic.BaseModel.model_fields_set] property). Using `exclude_unset`, any field that
   was not explicitly provided will be excluded:
 
-    ```python {group="exclude-unset"}
-    from pydantic import BaseModel
+  ```python {group="exclude-unset"}
+  from pydantic import BaseModel
 
 
-    class UserModel(BaseModel):
-        name: str
-        age: int = 18
+  class UserModel(BaseModel):
+      name: str
+      age: int = 18
 
 
-    user = UserModel(name='John')
-    print(user.model_fields_set)
-    #> {'name'}
+  user = UserModel(name='John')
+  print(user.model_fields_set)
+  #> {'name'}
 
-    print(user.model_dump(exclude_unset=True))
-    #> {'name': 'John'}
-    ```
+  print(user.model_dump(exclude_unset=True))
+  #> {'name': 'John'}
+  ```
 
-    Note that altering a field *after* the instance has been created will remove it from the unset fields:
+  Note that altering a field _after_ the instance has been created will remove it from the unset fields:
 
-    ```python {group="exclude-unset"}
-    user.age = 21
+  ```python {group="exclude-unset"}
+  user.age = 21
 
-    print(user.model_dump(exclude_unset=True))
-    #> {'name': 'John', 'age': 21}
-    ```
+  print(user.model_dump(exclude_unset=True))
+  #> {'name': 'John', 'age': 21}
+  ```
 
-    !!! tip
-        The [`MISSING` sentinel](./types.md#missing-sentinel) can be used as an alternative to `exclude_unset`.
-        Any field with `MISSING` as a value is automatically excluded from the serialization output.
+  !!! tip
+  The [`MISSING` sentinel](./types.md#missing-sentinel) can be used as an alternative to `exclude_unset`.
+  Any field with `MISSING` as a value is automatically excluded from the serialization output.

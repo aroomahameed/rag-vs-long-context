@@ -1,5 +1,5 @@
 ??? api "API Documentation"
-    [`pydantic.types.Strict`][pydantic.types.Strict]<br>
+[`pydantic.types.Strict`][pydantic.types.Strict]<br>
 
 By default, Pydantic will attempt to coerce values to the desired type when possible.
 For example, you can pass the string `'123'` as the input for the [`int` number type](../api/standard_library_types.md#integers),
@@ -50,13 +50,14 @@ failed validations as metrics, and can record the rejected values included in st
 
 Strict mode can be enabled in various ways:
 
-* [As a validation parameter](#as-a-validation-parameter), such as when using [`model_validate()`][pydantic.BaseModel.model_validate],
+- [As a validation parameter](#as-a-validation-parameter), such as when using [`model_validate()`][pydantic.BaseModel.model_validate],
   on Pydantic models.
-* [At the field level](#at-the-field-level).
-* [At the configuration level](#as-a-configuration-value) (with the possibility to override at the field level).
+- [At the field level](#at-the-field-level).
+- [At the configuration level](#as-a-configuration-value) (with the possibility to override at the field level).
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#strict-mode-in-method-calls}
 
 ## As a validation parameter
@@ -90,6 +91,7 @@ TypeAdapter(date).validate_json('"2000-01-01"', strict=True)  # (1)!
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#strict-mode-with-field}
 
 ## At the field level
@@ -128,12 +130,13 @@ except ValidationError as e:
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#strict-mode-with-annotated-strict}
 
 ### Using the `Strict()` metadata class
 
 ??? api "API Documentation"
-    [`pydantic.types.Strict`][pydantic.types.Strict]<br>
+[`pydantic.types.Strict`][pydantic.types.Strict]<br>
 
 As an alternative to the [`Field()`][pydantic.Field] function, Pydantic provides the [`Strict`][pydantic.types.Strict]
 metadata class, meant to be used with the [annotated pattern](./fields.md#the-annotated-pattern). It also provides
@@ -157,6 +160,7 @@ class User(BaseModel):
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#strict-mode-with-configdict}
 
 ## As a configuration value

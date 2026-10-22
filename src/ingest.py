@@ -36,7 +36,17 @@ def load_corpus(name):
     names = pathlib.Path(f"data/{name}.txt").read_text().splitlines()
     return [{"source": n, "text": read(n)} for n in names if n]
 
+def chunk_fixed(doc, size=500, overlap=50):
+    """Split a document into windows of `size` tokens that overlap by `overlap`."""
+    toks = enc.encode(doc["text"], disallowed_special=())
+    step = size - overlap
+    return [
+        {"id": f'{doc["source"]}#{i}', "source": doc["source"],
+         "text": enc.decode(toks[start:start + size])}
+        for i, start in enumerate(range(0, len(toks), step))
+    ]
+
+
 
 if __name__ == "__main__":
     build_manifests()
-    

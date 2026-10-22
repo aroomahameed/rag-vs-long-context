@@ -1,6 +1,6 @@
 ## Python 3.14 and greater
 
-Since Python 3.14, Python does not *eagerly* evaluate annotations anymore, meaning you can reference objects
+Since Python 3.14, Python does not _eagerly_ evaluate annotations anymore, meaning you can reference objects
 that are not yet defined when the annotation is specified:
 
 ```python {requires="3.14" lint="skip"}

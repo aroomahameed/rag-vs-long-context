@@ -1,5 +1,5 @@
 ??? api "API Documentation"
-    [`pydantic.fields.Field`][pydantic.fields.Field]<br>
+[`pydantic.fields.Field`][pydantic.fields.Field]<br>
 
 In this section, we will go through the available mechanisms to customize Pydantic model fields:
 [default values](#default-values), [JSON Schema metadata](#customizing-json-schema),
@@ -18,8 +18,8 @@ class Model(BaseModel):
 ```
 
 !!! note
-    Even though `name` is assigned a value, it is still required and has no default value. If you want
-    to emphasize on the fact that a value must be provided, you can use the [ellipsis][Ellipsis]:
+Even though `name` is assigned a value, it is still required and has no default value. If you want
+to emphasize on the fact that a value must be provided, you can use the [ellipsis][Ellipsis]:
 
     ```python {lint="skip" test="skip"}
     class Model(BaseModel):
@@ -48,23 +48,23 @@ the available metadata to add validation logic, type constraints, etc.
 
 Using this pattern has some advantages:
 
-* Using the `f: <type> = Field(...)` form can be confusing and might trick users into thinking `f`
+- Using the `f: <type> = Field(...)` form can be confusing and might trick users into thinking `f`
   has a default value, while in reality it is still required.
-* You can provide an arbitrary amount of metadata elements for a field. As shown in the example above,
+- You can provide an arbitrary amount of metadata elements for a field. As shown in the example above,
   the [`Field()`][pydantic.fields.Field] function only supports a limited set of constraints/metadata,
   and you may have to use different Pydantic utilities such as [`WithJsonSchema`][pydantic.WithJsonSchema]
   in some cases.
-* Types can be made reusable (see the documentation on [custom types](./types.md#using-the-annotated-pattern)
+- Types can be made reusable (see the documentation on [custom types](./types.md#using-the-annotated-pattern)
   using this pattern).
 
 However, note that certain arguments to the [`Field()`][pydantic.fields.Field] function (namely, `default`,
 `default_factory`, and `alias`) are taken into account by static type checkers to synthesize a correct
-`__init__()` method. The annotated pattern is *not* understood by them, so you should use the normal
+`__init__()` method. The annotated pattern is _not_ understood by them, so you should use the normal
 assignment form instead.
 
 !!! tip
-    The annotated pattern can also be used to add metadata to specific parts of the type. For instance,
-    [validation constraints](#field-constraints) can be added this way:
+The annotated pattern can also be used to add metadata to specific parts of the type. For instance,
+[validation constraints](#field-constraints) can be added this way:
 
     ```python
     from typing import Annotated
@@ -161,6 +161,7 @@ class User(BaseModel):
 ```
 
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#default-factory-validated-data}
 
 The default factory can also take a single required argument, in which case the already validated data will be passed as a dictionary.
@@ -179,7 +180,7 @@ print(user.username)
 #> user@example.com
 ```
 
-The `data` argument will *only* contain the already validated data, based on the [order of model fields](./models.md#field-ordering)
+The `data` argument will _only_ contain the already validated data, based on the [order of model fields](./models.md#field-ordering)
 (the above example would fail if `username` were to be defined before `email`).
 
 /// version-added | v2.10
@@ -192,7 +193,7 @@ Default factories for [private attributes](./models.md#private-model-attributes)
 
 ## Validate default values
 
-By default, Pydantic will *not* validate default values. The `validate_default` field parameter
+By default, Pydantic will _not_ validate default values. The `validate_default` field parameter
 (or the [`validate_default`][pydantic.ConfigDict.validate_default] configuration value) can be used
 to enable this behavior:
 
@@ -247,18 +248,18 @@ print(m2.item_counts)
 ## Field aliases
 
 !!! tip
-    Read more about aliases in the [dedicated section](./alias.md).
+Read more about aliases in the [dedicated section](./alias.md).
 
 For validation and serialization, you can define an alias for a field.
 
 There are three ways to define an alias:
 
-* `Field(alias='foo')`
-* `Field(validation_alias='foo')`
-* `Field(serialization_alias='foo')`
+- `Field(alias='foo')`
+- `Field(validation_alias='foo')`
+- `Field(serialization_alias='foo')`
 
-The `alias` parameter is used for both validation *and* serialization. If you want to use
-*different* aliases for validation and serialization respectively, you can use the `validation_alias`
+The `alias` parameter is used for both validation _and_ serialization. If you want to use
+_different_ aliases for validation and serialization respectively, you can use the `validation_alias`
 and `serialization_alias` parameters, which will apply only in their respective use cases.
 
 Here is an example of using the `alias` parameter:
@@ -281,15 +282,15 @@ print(user.model_dump(by_alias=True))  # (2)!
 1. The alias `'username'` is used for instance creation and validation.
 2. We are using [`model_dump()`][pydantic.main.BaseModel.model_dump] to convert the model into a serializable format.
 
-    Note that the `by_alias` keyword argument defaults to `False`, and must be specified explicitly to dump
-    models using the field (serialization) aliases.
+   Note that the `by_alias` keyword argument defaults to `False`, and must be specified explicitly to dump
+   models using the field (serialization) aliases.
 
-    You can also use [`ConfigDict.serialize_by_alias`][pydantic.config.ConfigDict.serialize_by_alias] to
-    configure this behavior at the model level.
+   You can also use [`ConfigDict.serialize_by_alias`][pydantic.config.ConfigDict.serialize_by_alias] to
+   configure this behavior at the model level.
 
-    When `by_alias=True`, the alias `'username'` used during serialization.
+   When `by_alias=True`, the alias `'username'` used during serialization.
 
-If you want to use an alias *only* for validation, you can use the `validation_alias` parameter:
+If you want to use an alias _only_ for validation, you can use the `validation_alias` parameter:
 
 ```python
 from pydantic import BaseModel, Field
@@ -309,7 +310,7 @@ print(user.model_dump(by_alias=True))  # (2)!
 1. The validation alias `'username'` is used during validation.
 2. The field name `'name'` is used during serialization.
 
-If you only want to define an alias for *serialization*, you can use the `serialization_alias` parameter:
+If you only want to define an alias for _serialization_, you can use the `serialization_alias` parameter:
 
 ```python
 from pydantic import BaseModel, Field
@@ -330,15 +331,15 @@ print(user.model_dump(by_alias=True))  # (2)!
 2. The serialization alias `'username'` is used for serialization.
 
 !!! note "Alias precedence and priority"
-    In case you use `alias` together with `validation_alias` or `serialization_alias` at the same time,
-    the `validation_alias` will have priority over `alias` for validation, and `serialization_alias` will have priority
-    over `alias` for serialization.
+In case you use `alias` together with `validation_alias` or `serialization_alias` at the same time,
+the `validation_alias` will have priority over `alias` for validation, and `serialization_alias` will have priority
+over `alias` for serialization.
 
     If you provide a value for the [`alias_generator`][pydantic.config.ConfigDict.alias_generator] model setting, you can control the order of precedence for field alias and generated aliases via the `alias_priority` field parameter. You can read more about alias precedence [here](../concepts/alias.md#alias-precedence).
 
 ??? tip "Static type checking/IDE support"
-    If you provide a value for the `alias` field parameter, static type checkers will use this alias instead
-    of the actual field name to synthesize the `__init__` method:
+If you provide a value for the `alias` field parameter, static type checkers will use this alias instead
+of the actual field name to synthesize the `__init__` method:
 
     ```python
     from pydantic import BaseModel, Field
@@ -427,10 +428,15 @@ print(user.model_dump(by_alias=True))  # (2)!
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#numeric-constraints}
+
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#string-constraints}
+
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#decimal-constraints}
 
 ## Field constraints
@@ -453,8 +459,8 @@ The available constraints for each type (and the way they affect the JSON Schema
 in the [standard library types](../api/standard_library_types.md) documentation.
 
 !!! note
-    When adding constraints to a union type, if a member of the union is `None` or the [`MISSING` sentinel](./types.md#missing-sentinel),
-    the constraints will be automatically applied to the remaining type(s) of the union:
+When adding constraints to a union type, if a member of the union is `None` or the [`MISSING` sentinel](./types.md#missing-sentinel),
+the constraints will be automatically applied to the remaining type(s) of the union:
 
     ```python
     from typing import Annotated
@@ -470,6 +476,7 @@ in the [standard library types](../api/standard_library_types.md) documentation.
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#strict-mode}
 
 ## Strict fields
@@ -498,15 +505,16 @@ The [standard library types](../api/standard_library_types.md) documentation des
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#dataclass-constraints}
 
 ## Dataclass fields
 
 Some parameters of the [`Field()`][pydantic.Field] function can be used on [dataclasses](./dataclasses.md):
 
-* `init`: Whether the field should be included in the synthesized `__init__()` method of the dataclass.
-* `init_var`: Whether the field should be [init-only][dataclasses-init-only-variables] in the dataclass.
-* `kw_only`: Whether the field should be a keyword-only argument in the constructor of the dataclass.
+- `init`: Whether the field should be included in the synthesized `__init__()` method of the dataclass.
+- `init_var`: Whether the field should be [init-only][dataclasses-init-only-variables] in the dataclass.
+- `kw_only`: Whether the field should be a keyword-only argument in the constructor of the dataclass.
 
 Here is an example:
 
@@ -661,6 +669,7 @@ except ValidationError as e:
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
+
 [](){#exclude}
 
 ## Excluding fields
@@ -699,8 +708,8 @@ The `exclude_if` parameter.
 
 The `deprecated` parameter can be used to mark a field as being deprecated. Doing so will result in:
 
-* a runtime deprecation warning emitted when accessing the field.
-* The [deprecated](https://json-schema.org/draft/2020-12/json-schema-validation#section-9.3) keyword
+- a runtime deprecation warning emitted when accessing the field.
+- The [deprecated](https://json-schema.org/draft/2020-12/json-schema-validation#section-9.3) keyword
   being set in the generated JSON schema.
 
 This parameter accepts different types, described below.
@@ -765,8 +774,8 @@ The [`@warnings.deprecated`][warnings.deprecated] decorator (or the
     ```
 
 !!! note "Support for `category` and `stacklevel`"
-    The current implementation of this feature does not take into account the `category` and `stacklevel`
-    arguments to the `deprecated` decorator. This might land in a future version of Pydantic.
+The current implementation of this feature does not take into account the `category` and `stacklevel`
+arguments to the `deprecated` decorator. This might land in a future version of Pydantic.
 
 ### `deprecated` as a boolean
 
@@ -785,8 +794,8 @@ print(Model.model_json_schema()['properties']['deprecated_field'])
 ```
 
 !!! warning "Accessing a deprecated field in validators"
-    When accessing a deprecated field inside a validator, the deprecation warning will be emitted. You can use
-    [`catch_warnings`][warnings.catch_warnings] to explicitly ignore it:
+When accessing a deprecated field inside a validator, the deprecation warning will be emitted. You can use
+[`catch_warnings`][warnings.catch_warnings] to explicitly ignore it:
 
     ```python
     import warnings
@@ -810,17 +819,17 @@ print(Model.model_json_schema()['properties']['deprecated_field'])
 
 Some field parameters are used exclusively to customize the generated JSON schema. The parameters in question are:
 
-* `title`
-* `description`
-* `examples`
-* `json_schema_extra`
+- `title`
+- `description`
+- `examples`
+- `json_schema_extra`
 
 Read more about JSON schema customization / modification with fields in the [Customizing JSON Schema] section of the JSON schema docs.
 
 ## The `computed_field` decorator
 
 ??? api "API Documentation"
-    [`@computed_field`][pydantic.fields.computed_field]<br>
+[`@computed_field`][pydantic.fields.computed_field]<br>
 
 /// version-added | v2.13
 Computed fields can be conditionally excluded from the serialization output by using the `exclude_if` parameter of the decorator.
@@ -831,8 +840,8 @@ The [`@computed_field`][pydantic.fields.computed_field] decorator can be used to
 The property will also be included in the JSON Schema (in serialization mode).
 
 !!! note
-    Properties can be useful for fields that are computed from other fields, or for fields that
-    are expensive to be computed (and thus, are cached if using [`@cached_property`][functools.cached_property]).
+Properties can be useful for fields that are computed from other fields, or for fields that
+are expensive to be computed (and thus, are cached if using [`@cached_property`][functools.cached_property]).
 
     However, note that Pydantic will *not* perform any additional logic on the wrapped property
     (validation, cache invalidation, etc.).
