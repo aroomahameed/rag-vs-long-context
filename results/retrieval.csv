@@ -1,0 +1,401 @@
+corpus,variant,type,recall5,mrr
+small,1 naive,single_fact,1.0,0.25
+small,1 naive,single_fact,0.0,0.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,0.3333333333333333
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,0.0,0.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,0.25
+small,1 naive,single_fact,0.0,0.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,0.5
+small,1 naive,single_fact,1.0,0.3333333333333333
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,0.25
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,0.5
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,0.3333333333333333
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,0.5
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,0.0,0.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,single_fact,1.0,1.0
+small,1 naive,exact_term,1.0,1.0
+small,1 naive,exact_term,1.0,1.0
+small,1 naive,exact_term,0.0,0.0
+small,1 naive,exact_term,1.0,1.0
+small,1 naive,exact_term,1.0,1.0
+small,1 naive,exact_term,1.0,1.0
+small,1 naive,exact_term,1.0,1.0
+small,1 naive,exact_term,1.0,1.0
+small,1 naive,exact_term,1.0,1.0
+small,1 naive,exact_term,1.0,1.0
+small,1 naive,exact_term,1.0,1.0
+small,1 naive,exact_term,1.0,1.0
+small,1 naive,exact_term,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,0.3333333333333333
+small,2 + heading chunks,single_fact,0.0,0.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,0.0,0.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,0.25
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,0.5
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,0.5
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,0.5
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,0.0,0.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,single_fact,1.0,1.0
+small,2 + heading chunks,exact_term,1.0,1.0
+small,2 + heading chunks,exact_term,1.0,1.0
+small,2 + heading chunks,exact_term,1.0,1.0
+small,2 + heading chunks,exact_term,1.0,0.3333333333333333
+small,2 + heading chunks,exact_term,1.0,1.0
+small,2 + heading chunks,exact_term,1.0,1.0
+small,2 + heading chunks,exact_term,1.0,1.0
+small,2 + heading chunks,exact_term,1.0,0.5
+small,2 + heading chunks,exact_term,1.0,1.0
+small,2 + heading chunks,exact_term,1.0,1.0
+small,2 + heading chunks,exact_term,1.0,1.0
+small,2 + heading chunks,exact_term,1.0,1.0
+small,2 + heading chunks,exact_term,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,0.3333333333333333
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,0.25
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,0.2
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,single_fact,1.0,1.0
+small,3 + hybrid,exact_term,1.0,1.0
+small,3 + hybrid,exact_term,1.0,1.0
+small,3 + hybrid,exact_term,1.0,1.0
+small,3 + hybrid,exact_term,1.0,0.5
+small,3 + hybrid,exact_term,1.0,1.0
+small,3 + hybrid,exact_term,1.0,1.0
+small,3 + hybrid,exact_term,1.0,1.0
+small,3 + hybrid,exact_term,1.0,1.0
+small,3 + hybrid,exact_term,1.0,1.0
+small,3 + hybrid,exact_term,1.0,1.0
+small,3 + hybrid,exact_term,1.0,1.0
+small,3 + hybrid,exact_term,1.0,1.0
+small,3 + hybrid,exact_term,1.0,1.0
+small,4 + reranker,single_fact,1.0,0.3333333333333333
+small,4 + reranker,single_fact,1.0,0.5
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,0.5
+small,4 + reranker,single_fact,1.0,0.5
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,0.5
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,0.5
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,0.5
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,single_fact,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+small,4 + reranker,exact_term,1.0,1.0
+large,1 naive,single_fact,1.0,0.2
+large,1 naive,single_fact,0.0,0.0
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,1.0,0.3333333333333333
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,1.0,0.25
+large,1 naive,single_fact,1.0,0.5
+large,1 naive,single_fact,0.0,0.0
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,0.0,0.0
+large,1 naive,single_fact,0.0,0.0
+large,1 naive,single_fact,1.0,0.2
+large,1 naive,single_fact,1.0,0.5
+large,1 naive,single_fact,1.0,0.5
+large,1 naive,single_fact,1.0,0.3333333333333333
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,0.0,0.0
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,1.0,0.5
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,0.0,0.0
+large,1 naive,single_fact,1.0,0.5
+large,1 naive,single_fact,0.0,0.0
+large,1 naive,single_fact,1.0,0.5
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,single_fact,0.0,0.0
+large,1 naive,single_fact,1.0,0.5
+large,1 naive,single_fact,1.0,1.0
+large,1 naive,exact_term,1.0,1.0
+large,1 naive,exact_term,1.0,0.5
+large,1 naive,exact_term,0.0,0.0
+large,1 naive,exact_term,1.0,1.0
+large,1 naive,exact_term,1.0,1.0
+large,1 naive,exact_term,1.0,1.0
+large,1 naive,exact_term,1.0,1.0
+large,1 naive,exact_term,1.0,1.0
+large,1 naive,exact_term,1.0,0.5
+large,1 naive,exact_term,1.0,1.0
+large,1 naive,exact_term,1.0,1.0
+large,1 naive,exact_term,1.0,1.0
+large,1 naive,exact_term,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,0.3333333333333333
+large,2 + heading chunks,single_fact,0.0,0.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,0.0,0.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,0.2
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,0.5
+large,2 + heading chunks,single_fact,1.0,0.2
+large,2 + heading chunks,single_fact,1.0,0.5
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,0.5
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,0.5
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,0.5
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,0.5
+large,2 + heading chunks,single_fact,1.0,0.3333333333333333
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,0.0,0.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,single_fact,1.0,1.0
+large,2 + heading chunks,exact_term,1.0,1.0
+large,2 + heading chunks,exact_term,1.0,1.0
+large,2 + heading chunks,exact_term,1.0,1.0
+large,2 + heading chunks,exact_term,0.0,0.0
+large,2 + heading chunks,exact_term,1.0,1.0
+large,2 + heading chunks,exact_term,1.0,1.0
+large,2 + heading chunks,exact_term,1.0,1.0
+large,2 + heading chunks,exact_term,1.0,0.5
+large,2 + heading chunks,exact_term,1.0,1.0
+large,2 + heading chunks,exact_term,1.0,1.0
+large,2 + heading chunks,exact_term,1.0,1.0
+large,2 + heading chunks,exact_term,1.0,1.0
+large,2 + heading chunks,exact_term,1.0,0.5
+large,3 + hybrid,single_fact,1.0,0.5
+large,3 + hybrid,single_fact,0.0,0.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,0.0,0.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,0.3333333333333333
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,0.5
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,0.5
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,0.5
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,0.5
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,single_fact,0.0,0.0
+large,3 + hybrid,single_fact,1.0,0.3333333333333333
+large,3 + hybrid,single_fact,1.0,1.0
+large,3 + hybrid,exact_term,1.0,1.0
+large,3 + hybrid,exact_term,1.0,1.0
+large,3 + hybrid,exact_term,1.0,1.0
+large,3 + hybrid,exact_term,1.0,0.25
+large,3 + hybrid,exact_term,1.0,1.0
+large,3 + hybrid,exact_term,1.0,1.0
+large,3 + hybrid,exact_term,1.0,1.0
+large,3 + hybrid,exact_term,1.0,1.0
+large,3 + hybrid,exact_term,1.0,1.0
+large,3 + hybrid,exact_term,1.0,1.0
+large,3 + hybrid,exact_term,1.0,1.0
+large,3 + hybrid,exact_term,1.0,1.0
+large,3 + hybrid,exact_term,1.0,0.5
+large,4 + reranker,single_fact,1.0,0.3333333333333333
+large,4 + reranker,single_fact,1.0,0.5
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,0.5
+large,4 + reranker,single_fact,1.0,0.5
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,0.5
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,0.3333333333333333
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,0.5
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,0.5
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,0.5
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,0.5
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,single_fact,1.0,1.0
+large,4 + reranker,exact_term,1.0,1.0
+large,4 + reranker,exact_term,1.0,1.0
+large,4 + reranker,exact_term,1.0,1.0
+large,4 + reranker,exact_term,1.0,0.3333333333333333
+large,4 + reranker,exact_term,1.0,1.0
+large,4 + reranker,exact_term,1.0,1.0
+large,4 + reranker,exact_term,1.0,1.0
+large,4 + reranker,exact_term,1.0,1.0
+large,4 + reranker,exact_term,1.0,1.0
+large,4 + reranker,exact_term,1.0,1.0
+large,4 + reranker,exact_term,1.0,1.0
+large,4 + reranker,exact_term,1.0,1.0
+large,4 + reranker,exact_term,1.0,1.0

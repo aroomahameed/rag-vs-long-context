@@ -1,5 +1,6 @@
 import pathlib
 import tiktoken
+import re
 
 RAW = pathlib.Path("data/raw")
 enc = tiktoken.get_encoding("cl100k_base")
@@ -46,6 +47,36 @@ def chunk_fixed(doc, size=500, overlap=50):
         for i, start in enumerate(range(0, len(toks), step))
     ]
 
+def chunk_by_heading(doc, max_tokens=500):
+    """Split on Markdown headings; prefix each chunk with its file and section path."""
+    sections, path, buf = [], [], []
+    in_code = False
+
+    def flush():
+        text = "".join(buf).strip()
+        if text:
+            sections.append((" > ".join(path), text))
+        buf.clear()
+
+    for line in doc["text"].splitlines(keepends=True):
+        if line.lstrip().startswith("```"):
+            in_code = not in_code  # '# comments' inside code are not headings
+        m = None if in_code else re.match(r"^(#{1,4})\s+(.+)", line)
+        if m:
+            flush()
+            level = len(m.group(1))
+            path[:] = path[:level - 1] + [m.group(2).strip()]
+        buf.append(line)
+    flush()
+
+    chunks = []
+    for j, (section, text) in enumerate(sections):
+        header = f"[{doc['source']}] {section}\n\n"
+        pieces = chunk_fixed({"source": doc["source"], "text": text}, size=max_tokens, overlap=50)
+        for k, piece in enumerate(pieces):  # long sections still get split
+            chunks.append({"id": f"{doc['source']}#s{j}.{k}", "source": doc["source"],
+                           "text": header + piece["text"]})
+    return chunks
 
 
 if __name__ == "__main__":
