@@ -927,3 +927,5 @@ class Box(BaseModel):
 
 [frozen dataclass documentation]: https://docs.python.org/3/library/dataclasses.html#frozen-instances
 [Customizing JSON Schema]: json_schema.md#field-level-customization
+
+{"id": "q001", "type": "single_fact", "question": "In Pydantic, how can I set a field so it accepts a different input name when validating but still uses the field name when dumping the model with by_alias=True?", "gold_answer": "The alias parameter is used for both validation and serialization. If you want to use different aliases for validation and serialization respectively, you can use thevalidation_alias and serialization_alias parameters, which will apply only in their respective use cases, so model_dump(by_alias=True) outputs 'my_field'. In case you use alias together with validation_alias or serialization_alias at the same time, the validation_alias will have priority over alias for validation, and serialization_alias will have priority over alias for serialization..", "gold_sources": ["pydantic/concepts/fields.md"]}

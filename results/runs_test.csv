@@ -1,0 +1,132 @@
+corpus,approach,qid,type,grade,judge_reason,answer,said_not_found,recall5,mrr,gold_in_context,tokens_in,tokens_out,cost_usd,latency_s
+small,long_context,q001,single_fact,correct,Correctly recommends validation_alias with a working example showing by_alias dump uses the field name; omits the extra detail on alias priority but the core answer matches.,"Use the `validation_alias` parameter of `Field()` and leave out `alias` and `serialization_alias`. The validation alias applies only during validation, so `model_dump(by_alias=True)` outputs the field name:
+
+```python
+from pydantic import BaseModel, Field
+
+
+class User(BaseModel):
+    name: str = Field(validation_alias='username')
+
+
+user = User(username='johndoe')  # The validation alias 'username' is used
+print(user)
+#> name='johndoe'
+print(user.model_dump(by_alias=True))  # The field name 'name' is used
+#> {'name': 'johndoe'}
+```
+
+[pydantic/concepts/fields.md]",False,,,True,122817,440,0.0625085,4.63
+small,long_context,q002,single_fact,correct,"The system answer matches the gold on the key facts: a ValidationError is raised, and only Foo or its subclasses are accepted. It writes the error type as is_subclass_of rather than the gold's is_subclass, which is a minor naming difference and matches Pydantic's actual error type.","Pydantic raises a `ValidationError`. For a field annotated as `type[Foo]`, Pydantic only accepts classes that are `Foo` or subclasses of it. Passing an unrelated class such as `Other` fails validation with an error like:
+
+```
+1 validation error for SimpleModel
+just_subclasses
+  Input should be a subclass of Foo [type=is_subclass_of, input_value=<class '__main__.Other'>, input_type=type]
+```
+
+[pydantic/api/standard_library_types.md]",False,,,True,122814,261,0.0620595,4.08
+small,long_context,q003,single_fact,correct,"Correctly identifies model_json_schema() returning a dict serializable via json.dumps; only omits the secondary TypeAdapter note for non-model types, and the extra mode detail is accurate.","Call the `model_json_schema()` method on the model class. It returns a jsonable Python dict representing the model's JSON Schema:
+
+```python
+main_model_schema = MainModel.model_json_schema()
+print(json.dumps(main_model_schema, indent=2))  # json.dumps turns the dict into a JSON string
+```
+
+[pydantic/concepts/json_schema.md]
+
+The method returns a dict, not a JSON string. Calling `json.dumps` on that dict produces a valid JSON string. [pydantic/concepts/json_schema.md]
+
+By default the schema is generated in `'validation'` mode. You can pass `mode='serialization'` to generate the serialization schema instead. [pydantic/concepts/json_schema.md]",False,,,True,122801,376,0.0623405,3.46
+small,long_context,q004,single_fact,correct,"The system answer names model_dump_json() and PydanticSerializationError for unsupported types, matching the key facts; it omits the detail about types beyond stdlib json (datetimes, UUIDs), which is supplementary rather than a key fact.","Call [`model_dump_json()`][pydantic.BaseModel.model_dump_json], which serializes the model directly to a JSON-encoded string. [pydantic/concepts/serialization.md]
+
+If a value can't be serialized to JSON, Pydantic raises a [`PydanticSerializationError`][pydantic_core.PydanticSerializationError]. This happens when the value has an unsupported type. [pydantic/concepts/serialization.md]",False,,,True,122819,214,0.0619445,2.19
+small,long_context,q005,single_fact,correct,"The system answer lists all four constraints, the coercibility requirement, both ways to set them, and the strict-mode and JSON-mode behavior, matching the gold answer with no contradictions.","**Constraints:** A time field supports four constraints: `le` (less than or equal to), `ge` (greater than or equal to), `lt` (strictly less than), and `gt` (strictly greater than). Constraint values must be coercible to a `time` instance. You can set them with `Field()`, or with the `Le`, `Ge`, `Lt`, and `Gt` metadata types from the `annotated-types` library. [pydantic/api/standard_library_types.md]
+
+**Strict mode:** In strict mode, only `datetime.time` instances are accepted in Python mode. In JSON mode, only strings that comply with the RFC 3339 time format are accepted. [pydantic/api/standard_library_types.md]",False,,,True,122802,405,0.0624135,2.93
+small,naive_rag,q001,single_fact,partial,"The system answer correctly identifies validation_alias with a working example where by_alias=True dumps the field name, but it omits the gold answer's points about alias applying to both and the priority rules.","Use the `validation_alias` parameter of `Field`. The alias is used only during validation, and dumping with `by_alias=True` still outputs the field name:
+
+```python
+from pydantic import BaseModel, Field
+
+
+class User(BaseModel):
+    name: str = Field(validation_alias='username')
+
+
+user = User(username='johndoe')  # 'username' is used during validation
+print(user.model_dump(by_alias=True))  # field name 'name' is used during serialization
+#> {'name': 'johndoe'}
+```
+
+[pydantic/concepts/fields.md]",False,1.0,0.25,,3907,282,0.0005317000000000001,2.02
+small,naive_rag,q002,single_fact,wrong,"The system answered NOT FOUND although the gold answer exists, so by the grading rules it is wrong.",NOT FOUND,True,0.0,0.0,,4097,9,0.00041420000000000004,1.21
+small,naive_rag,q003,single_fact,correct,"It correctly names model_json_schema(), says it returns a dict, and mentions json.dumps(); only the TypeAdapter note for non-model types is missing, which is peripheral to the question.","Use the `BaseModel.model_json_schema` method on the model class, for example `MyModel.model_json_schema()`. It returns a jsonable dict representing the model's JSON schema. [pydantic/concepts/json_schema.md]
+
+The result is a dict, not a JSON string. You can serialize it yourself with `json.dumps(MyModel.model_json_schema())`. [pydantic/concepts/json_schema.md]
+
+Don't confuse it with `BaseModel.model_dump_json`, which serializes model instances and returns a JSON string. [pydantic/concepts/json_schema.md]",False,1.0,1.0,,3554,334,0.0005224000000000001,3.26
+small,naive_rag,q004,single_fact,correct,"The system answer names model_dump_json() and says unserializable values raise PydanticSerializationError, which are the two key facts; it omits the detail about types like datetimes and UUIDs, but that is elaboration rather than a key fact.","To get a model serialized directly to a JSON-encoded string, call `model_dump_json()`. For example, `m.model_dump_json(indent=2)` [pydantic/concepts/serialization.md].
+
+If a value can't be serialized to JSON, Pydantic raises a `PydanticSerializationError` [pydantic/concepts/serialization.md].",False,1.0,1.0,,4174,173,0.0005039,2.35
+small,naive_rag,q005,single_fact,wrong,"The system answered NOT FOUND although the gold answer contains substantive facts, so per the rules it is wrong.",NOT FOUND,True,1.0,0.3333333333333333,,3716,478,0.0006106,3.53
+small,tuned_hybrid,q001,single_fact,correct,"The system answer correctly says to use `validation_alias`, which applies only to validation, so `model_dump(by_alias=True)` still outputs the field name. It omits the gold's extra points about `alias` covering both uses, `serialization_alias`, and priority, but none of these are needed for the question asked.","Use the `validation_alias` parameter on `Field()`. Pydantic uses the alias only during validation, and dumping with `by_alias=True` still outputs the field name:
+
+```python
+from pydantic import BaseModel, Field
+
+
+class User(BaseModel):
+    name: str = Field(validation_alias='username')
+
+
+user = User(username='johndoe')
+print(user.model_dump(by_alias=True))
+#> {'name': 'johndoe'}
+```
+
+[pydantic/concepts/fields.md]",False,1.0,1.0,,3918,274,0.0005288,1.78
+small,tuned_hybrid,q002,single_fact,correct,"The system answer matches the gold on the key facts: a ValidationError is raised, and only Foo or its subclasses are accepted. Its error type `is_subclass_of` differs slightly from the gold's `is_subclass`, but that is the actual Pydantic name and the gold looks like shorthand.","Pydantic raises a `ValidationError`. A field annotated as `type[Foo]` only accepts `Foo` or its subclasses. In the documented example, passing an unrelated class `Other` produces this error:
+
+```
+Input should be a subclass of Foo [type=is_subclass_of, input_value=<class '__main__.Other'>, input_type=type]
+```
+
+[pydantic/api/standard_library_types.md]",False,1.0,1.0,,2963,220,0.0004063,1.62
+small,tuned_hybrid,q003,single_fact,correct,"It correctly identifies model_json_schema on the model class returning a dict that json.dumps can serialize, and only omits the secondary TypeAdapter note for non-model types.","Use the `BaseModel.model_json_schema` method on your model class. It returns a ""jsonable"" dict representing the model's JSON schema [pydantic/concepts/json_schema.md].
+
+Calling `json.dumps` on that dict produces a valid JSON string [pydantic/concepts/json_schema.md]. The method does not return a JSON string itself. It is also distinct from `BaseModel.model_dump_json`, which serializes model instances to JSON strings [pydantic/concepts/json_schema.md].",False,1.0,1.0,,4220,281,0.0005625,1.82
+small,tuned_hybrid,q004,single_fact,correct,"The system answer names model_dump_json() and says unsupported types raise PydanticSerializationError, which matches the gold's key facts; it omits only the minor detail about datetimes and UUIDs.","You should call `model_dump_json()` on the model. It serializes the model directly to a JSON-encoded string, trying its best to convert Python values to valid JSON data [pydantic/concepts/serialization.md].
+
+If an unsupported type is used and cannot be serialized to JSON, a `PydanticSerializationError` exception is raised [pydantic/concepts/serialization.md].",False,1.0,1.0,,3806,126,0.00044360000000000005,3.44
+small,tuned_hybrid,q005,single_fact,correct,"The system answer matches every key fact in the gold answer: the le/ge/lt/gt constraints, their coercibility to time, the Field() and annotated-types metadata options, strict mode accepting only datetime.time, and JSON mode accepting only RFC 3339 strings.","For a `time` field, you can use four constraints: `le` (less than or equal to), `ge` (greater than or equal to), `lt` (strictly less than), and `gt` (strictly greater than). Each constraint value must be coercible to a `time` instance. You can set them with `Field()`, or with the `Le`, `Ge`, `Lt`, and `Gt` metadata types from the `annotated-types` library [pydantic/api/standard_library_types.md].
+
+In strict mode, only `datetime.time` instances are accepted. In JSON mode, only strings in RFC 3339 format are accepted [pydantic/api/standard_library_types.md].",False,1.0,0.3333333333333333,,2846,370,0.00046960000000000003,2.55
+small,tuned_full,q001,single_fact,correct,"The system answer correctly recommends `validation_alias` (not `alias`) and shows that `model_dump(by_alias=True)` outputs the field name. It omits `serialization_alias` and the priority rules, but those are extra detail for this question.","Use the `validation_alias` parameter, not `alias`. An alias set only for validation is used when reading input, and the field name is used when dumping. For example:
+
+```python
+from pydantic import BaseModel, Field
+
+
+class User(BaseModel):
+    name: str = Field(validation_alias='username')
+
+
+user = User(username='johndoe')
+print(user.model_dump(by_alias=True))
+#> {'name': 'johndoe'}
+```
+
+Validation accepts `'username'`, and `model_dump(by_alias=True)` outputs the field name `'name'` [pydantic/concepts/fields.md].",False,1.0,1.0,,4270,385,0.0006195,22.36
+small,tuned_full,q002,single_fact,correct,"The system answer matches the key fact that a ValidationError is raised saying the input should be a subclass of Foo. Its error type `is_subclass_of` differs slightly from the gold `is_subclass`, but that is Pydantic's actual name, so it is not a real contradiction.","Pydantic raises a `ValidationError`. The field only accepts classes that are subclasses of the type argument, so passing a class like `Other` that does not inherit from `Foo` fails validation. The error reads: ""Input should be a subclass of Foo [type=is_subclass_of, input_value=<class '__main__.Other'>, input_type=type]"" [pydantic/api/standard_library_types.md].",False,1.0,0.5,,3377,192,0.0004337,23.04
+small,tuned_full,q003,single_fact,correct,"It correctly names model_json_schema(), says it returns a dict, and mentions json.dumps; it omits only the secondary TypeAdapter detail and adds correct extra information.","To generate the JSON schema for a model class, call `model_json_schema()` on the class. It returns a jsonable dict representing the model's schema. [pydantic/concepts/json_schema.md]
+
+```python
+print(MyModel.model_json_schema())
+```
+
+The result is a dict, not a JSON string. You can pass it to `json.dumps` to get a valid JSON string. [pydantic/concepts/json_schema.md]
+
+Don't confuse this with `model_dump_json`, which serializes model instances and returns a JSON string. [pydantic/concepts/json_schema.md]",False,1.0,1.0,,3534,350,0.0005284,21.38
+small,tuned_full,q004,single_fact,correct,"The system answer names model_dump_json() and PydanticSerializationError, matching the gold answer, and the extra detail about sets and other types does not contradict it.","Call `model_dump_json()` on the model to serialize it directly to a JSON-encoded string [pydantic/concepts/serialization.md]. Pydantic tries its best to convert Python values to valid JSON data, and it supports many types beyond the standard library `json` module, such as date and time types, `UUID` objects, and sets. If a value is of an unsupported type that can't be serialized to JSON, a `PydanticSerializationError` exception is raised [pydantic/concepts/serialization.md].",False,1.0,1.0,,3294,166,0.00041240000000000005,27.92
+small,tuned_full,q005,single_fact,wrong,"The system answered NOT FOUND although the gold answer contains substantive facts, so per the rules it is wrong.",NOT FOUND,True,1.0,0.5,,3528,235,0.0004703,25.3

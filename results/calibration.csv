@@ -1,0 +1,126 @@
+qid,approach,corpus,question,gold_answer,answer,my_grade
+q054,long_context,large,How do I convert a Pydantic model into a Protocol Buffers definition using model.to_proto()?,NOT FOUND,NOT FOUND,correct
+q044,long_context,large,"In Pydantic, what is the difference between calling model_copy() and calling model_copy(deep=True) on a model with a nested model field like bar?","A normal model_copy() gives the same object reference for the nested bar field (id(m.bar) == id(m.model_copy().bar) is True), while model_copy(deep=True) creates a new object reference for bar (the ids differ, so the comparison is False).",NOT FOUND,wrong
+q035,long_context,small,"Can Pydantic serialize a Callable field to JSON, and what happens if I try?","No. Callables are serialized as is, but they can't be serialized in JSON mode; Pydantic raises a PydanticSerializationError.","No. Pydantic serializes callables as-is in Python mode, but JSON mode isn't supported. Callables can't be serialized in JSON mode, and a `PydanticSerializationError` is raised [pydantic/api/standard_library_types.md].",correct
+q021,tuned_hybrid,large,"In Pydantic, what happens when I pass a plain dict or a mapping to a field typed as collections.OrderedDict?",Pydantic accepts the dict or mapping and coerces it into an OrderedDict. An existing OrderedDict instance is accepted as is.,"Pydantic accepts a plain `dict` or a mapping for a field typed as `collections.OrderedDict` and coerces it to an `OrderedDict`. If you gave key and value types, those are validated too. [pydantic/api/standard_library_types.md]
+
+For example, `Model(x={'foo': 1})` for a field `x: OrderedDict[str, int]` produces `OrderedDict({'foo': 1})`. [pydantic/api/standard_library_types.md]",correct
+q011,tuned_full,large,"In Pydantic, does a dataclass support the model_config attribute the same way Pydantic models do?","No. Pydantic dataclasses support configuration, but they don't use the model_config attribute as Pydantic models do.","No. The dataclasses documentation notes that configuration is supported for dataclasses, but dataclasses don't support the `model_config` attribute as Pydantic models do [pydantic/concepts/dataclasses.md]. Instead, you can use the `config` parameter on the `@dataclass` decorator [pydantic/migration.md].",correct
+q004,tuned_hybrid,large,"In Pydantic, what should I call to get a model serialized directly to a JSON-encoded string, and what happens if a value can't be converted to JSON?","Call model_dump_json() on the model instance. Pydantic tries to convert Python values to valid JSON, including types beyond the standard library json module such as datetimes and UUIDs. If a value is an unsupported type that cannot be serialized to JSON, it raises a PydanticSerializationError.","You should call `model_dump_json()`, which serializes the model directly to a JSON-encoded string. If a value is an unsupported type that can't be serialized to JSON, a `PydanticSerializationError` exception is raised [pydantic/concepts/serialization.md].",correct
+q024,tuned_hybrid,large,"In Pydantic, if a field is marked with exclude=True and I also pass include to model_dump() that names that field, will the field appear in the output?","No. Field-level exclusion (exclude=True on the field) takes priority over the include serialization parameter, so the field stays out of the output even if include names it.","No. Field-level exclusion takes priority over the `include` parameter, so the field will not appear in the `model_dump()` output even if you name it in `include` [pydantic/concepts/serialization.md].",correct
+q007,naive_rag,small,"In Pydantic, how do I handle two models that reference each other across separate modules for Python 3.14 and lower, when one module can't import the other at runtime?","Import only one of the models inside an `if TYPE_CHECKING:` block and reference it with a string forward annotation (e.g. `b: 'B | None' = None`), leaving that model incomplete. In a parent module such as `__init__.py`, import both models and call `A.model_rebuild()` on the incomplete one so the forward reference resolves.","For Python 3.14 and lower, import only one of the two models inside an `if TYPE_CHECKING:` block and reference it with a forward annotation. Then, in a parent module such as the package's `__init__.py`, import both models and call `model_rebuild()` on the incomplete one.
+
+1. In `a.py`, import `B` only for type checking and annotate the field as a string:
+
+```python
+from typing import TYPE_CHECKING
+
+from pydantic import BaseModel
+
+if TYPE_CHECKING:
+    from .b import B
+
+
+class A(BaseModel):
+    b: 'B | None' = None
+```
+
+2. In `b.py`, import `A` normally:
+
+```python
+from pydantic import BaseModel
+
+from .a import A
+
+
+class B(BaseModel):
+    a: A | None = None
+```
+
+3. In `__init__.py`, import both models and rebuild `A`, since `B` is in scope there and the forward annotation can be resolved:
+
+```python
+from .a import A
+from .b import B
+
+__all__ = ('A', 'B')
+
+A.model_rebuild()
+```
+
+[pydantic/concepts/forward_annotations.md]",wrong
+q011,long_context,large,"In Pydantic, does a dataclass support the model_config attribute the same way Pydantic models do?","No. Pydantic dataclasses support configuration, but they don't use the model_config attribute as Pydantic models do.",NOT FOUND,partial
+q032,long_context,small,"Which TypedDict should I import when using Pydantic on Python 3.12 or lower, and why?","Use TypedDict from typing_extensions (typing_extensions.TypedDict) instead of typing.TypedDict, because of runtime limitations Pydantic has with Python 3.12 and lower.","On Python 3.12 and lower, import `TypedDict` from `typing_extensions`. Pydantic requires this ""because of runtime limitations"" [pydantic/api/standard_library_types.md]. The documents don't describe those limitations further.",correct
+q041,tuned_hybrid,large,"In Pydantic, how can I make list validation stop at the first invalid item instead of reporting errors for every item?","Apply the FailFast annotation to the sequence type, e.g. TypeAdapter(Annotated[list[bool], FailFast()]). Validation then fails early on the first invalid item, so errors for the remaining items are not reported, trading error visibility for performance. This is available starting in v2.8.","Apply the `FailFast` annotation to the collection type. Validation then stops as soon as an item fails, instead of reporting every item's error. The tradeoff is that you get less information about the errors. `FailFast` works on sequence and collection types such as `list`, `tuple`, `set`, and `dict`, and it was added in v2.8 [pydantic/concepts/types.md] [pydantic/concepts/performance.md].
+
+```python
+from typing import Annotated
+
+from pydantic import FailFast, TypeAdapter, ValidationError
+
+ta = TypeAdapter(Annotated[list[int], FailFast()])
+
+try:
+    ta.validate_python([1, 'a', 2, 'b'])
+except ValidationError as exc:
+    print(exc)
+```
+
+The error output reports only the first failing item (`'a'` at index 1), not the later `'b'` [pydantic/concepts/types.md].",correct
+q040,tuned_hybrid,small,"In Pydantic, how can I enforce a minimum or maximum number of items on a set field, and which library's metadata types can I use for this instead?","Use the Field() function with the min_length and max_length parameters (mapping to JSON Schema minItems/maxItems); alternatively, the MinLen and MaxLen metadata types from the annotated-types library can be used.","You can set `min_length` and `max_length` on a set field. These map to the JSON Schema `minItems` and `maxItems` keywords, and they can be provided using the [`Field()`][pydantic.Field] function [pydantic/api/standard_library_types.md].
+
+The alternative is the `MinLen` and `MaxLen` metadata types from the **annotated-types** library, which can also be used for this [pydantic/api/standard_library_types.md].",correct
+q049,tuned_hybrid,small,"In Pydantic, when I define a custom __init__() on my model, will it still be called when I use model_validate()?","Yes. A custom __init__() is called unconditionally from all validation methods, including model_validate_*() methods, without performing validation, so you should call super().__init__(**kwargs) in your implementation.","Yes. A custom `__init__()` is called unconditionally from all the validation methods, including `model_validate()`, but it performs no validation itself, so your implementation should call `super().__init__(**kwargs)` [pydantic/concepts/models.md]. The docs also advise against defining a custom `__init__()`, because validation parameters such as strictness, extra data behavior, and validation context are lost. For post-initialization actions, they recommend field or model after-validators or `model_post_init()` instead [pydantic/concepts/models.md].",correct
+q026,naive_rag,large,"In Pydantic, what type does a generic model field use when its TypeVar is unbound and has no default, and what happens if the TypeVar has a bound or a default?","If the TypeVar is unbound or unconstrained with no default, Pydantic falls back to Any. If the TypeVar is bound or constrained to a specific type, that type is used. If it has a default (PEP 696), the default type is used.","For an unbound or unconstrained TypeVar with no default, Pydantic falls back to `Any`. [pydantic/concepts/models.md]
+
+If the TypeVar has a bound or constraints, Pydantic uses that type. If it has a default (PEP 696), Pydantic uses the default. [pydantic/concepts/models.md]
+
+Serialization differs for bound TypeVars. If a model is used as the upper bound and the TypeVar is never parametrized, Pydantic validates against the bound but serializes the value as `Any`. The default type or constraints are used for both validation and serialization. [pydantic/concepts/models.md]",correct
+q007,tuned_full,small,"In Pydantic, how do I handle two models that reference each other across separate modules for Python 3.14 and lower, when one module can't import the other at runtime?","Import only one of the models inside an `if TYPE_CHECKING:` block and reference it with a string forward annotation (e.g. `b: 'B | None' = None`), leaving that model incomplete. In a parent module such as `__init__.py`, import both models and call `A.model_rebuild()` on the incomplete one so the forward reference resolves.","For Python 3.14 and lower, Pydantic recommends this approach:
+
+1. **In the module that can't import the other at runtime (e.g., `a.py`)**, import the other model only inside an `if TYPE_CHECKING:` block, and use a string forward annotation for it:
+
+   ```python
+   from typing import TYPE_CHECKING
+
+   from pydantic import BaseModel
+
+   if TYPE_CHECKING:
+       from .b import B
+
+
+   class A(BaseModel):
+       b: 'B | None' = None
+   ```
+
+2. **In the other module (e.g., `b.py`)**, import the model normally:
+
+   ```python
+   from pydantic import BaseModel
+
+   from .a import A
+
+
+   class B(BaseModel):
+       a: A | None = None
+   ```
+
+Because `B` isn't available at runtime in `a.py`, `A` is left incomplete. To resolve it, import both models in a parent module, such as the package's `__init__.py`, and call `model_rebuild()` on the incomplete model. Since `B` is in scope there, the forward annotation can be resolved. The documents cut off the `__init__.py` example, so its exact contents aren't shown. [pydantic/concepts/forward_annotations.md]
+
+For Python 3.15 and above, you can instead use the `lazy` keyword (for example, `lazy from .b import B`) to defer the import and break the cycle. [pydantic/concepts/forward_annotations.md]",correct
+q008,naive_rag,large,"In Pydantic, if a generic model's field is typed with a TypeVar bound to a base class, and I create an instance using a subclass with extra fields, why does model_dump() include the extra fields, but it drops them when I explicitly parametrize the model with the base class?","When the generic model is not parametrized (e.g. Error(...) with a subclass instance), the field is effectively typed as Any, so Pydantic serializes the actual subclass instance and includes its extra fields. When explicitly parametrized with the base class (e.g. Error[ErrorDetails](...)), the field has that concrete type, so Pydantic serializes using that base class schema and the extra fields (like 'bar') are omitted from model_dump().","The documents only partly answer this. They explain why the unparametrized case keeps the extra fields, but they don't directly say why explicitly parametrizing with the base class drops them.
+
+**Unparametrized TypeVar (extra fields kept):** When a model is used in a TypeVar's upper bound and the TypeVar is never parametrized, Pydantic validates against the upper bound but treats the value as `Any` for serialization. So `model_dump()` serializes the value using its actual runtime type, which includes the subclass's extra fields [pydantic/concepts/models.md].
+
+**Validation against the bound (fields can be lost):** In the documented `ItemHolder`",partial
+q056,tuned_hybrid,large,How do I enable CUDA GPU acceleration to speed up Pydantic validation?,NOT FOUND,NOT FOUND,correct
+q031,naive_rag,large,"In Pydantic, if I subclass a generic model, what do I need to do to keep the subclass generic?","The subclass must also inherit from typing.Generic, in addition to the generic model, so that it preserves the fact that it is generic.","To keep the subclass generic, the subclass must also inherit from `Generic` (from `typing`). For example:
+
+```python
+class ChildClass(BaseClass[TypeX], Generic[TypeX]):
+    pass
+```
+
+[pydantic/concepts/models.md]",correct
+q048,long_context,small,"In Pydantic, if a parent model sets model_config = ConfigDict(extra='allow', str_to_lower=False) and a subclass sets model_config = ConfigDict(str_to_lower=True), what will the subclass's effective configuration be?","The subclass configuration is merged with the parent's, giving {'extra': 'allow', 'str_to_lower': True}: extra is inherited as 'allow' and the subclass's str_to_lower=True overrides the parent's False.","The subclass's effective configuration is the merge of both dictionaries: `extra='allow'` is inherited from the parent, and the subclass's `str_to_lower=True` overrides the parent's `str_to_lower=False`. The documented result is `{'extra': 'allow', 'str_to_lower': True}` [pydantic/concepts/config.md].",correct
+q025,tuned_full,small,"Can Pydantic models be pickled and unpickled, and is it efficient?","Yes. Pydantic models support efficient pickling and unpickling, so you can use pickle.dumps() to serialize a model instance and pickle.loads() to restore it.","Yes. Pydantic models support pickling and unpickling, and the documentation states they do so efficiently: ""Pydantic models support efficient pickling and unpickling."" [pydantic/concepts/serialization.md]",correct
