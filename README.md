@@ -6,22 +6,22 @@ Context windows now hold hundreds of thousands of tokens, and a popular claim is
 
 **When the documents fit in the context window, long context was the most accurate approach (100% vs 95% for the best RAG), but it cost about 137× more per question ($0.062 vs $0.00045). When they didn't fit, long context fell to 21% accuracy, while tuned RAG held at 91–92%.**
 
-RAG isn't dead. *Naive* RAG is the weak version (78–83%); hybrid search with better chunking closes most of the gap.
+RAG isn't dead. _Naive_ RAG is the weak version (78–83%); hybrid search with better chunking closes most of the gap.
 
 ![Accuracy vs cost](results/accuracy_vs_cost.png)
 
 ## Results
 
-| Corpus | Approach | Accuracy | Right document seen* | Tokens sent per question | Cost per question | Typical latency (p50) |
-| --- | --- | --- | --- | --- | --- | --- |
-| Small (fits) | Long context | **1.00** | 100% | 122,812 | $0.062 | 3.3 s |
-| Small (fits) | Naive RAG | 0.83 | 90% | 3,665 | $0.0005 | 2.2 s |
-| Small (fits) | Tuned hybrid | 0.95 | 100% | 3,258 | $0.0005 | 1.9 s |
-| Small (fits) | Tuned full (+ reranker) | 0.93 | 100% | 3,319 | $0.0005 | 32.1 s |
-| Large (doesn't fit) | Long context | 0.21 | 10% | 176,915 | $0.089 | 3.8 s |
-| Large (doesn't fit) | Naive RAG | 0.78 | 82% | 3,697 | $0.0005 | 2.4 s |
-| Large (doesn't fit) | Tuned hybrid | 0.91 | 94% | 3,074 | $0.0005 | 2.1 s |
-| Large (doesn't fit) | Tuned full (+ reranker) | **0.92** | 100% | 3,182 | $0.0005 | 31.2 s |
+| Corpus              | Approach                | Accuracy | Right document seen\* | Tokens sent per question | Cost per question | Typical latency (p50) |
+| ------------------- | ----------------------- | -------- | --------------------- | ------------------------ | ----------------- | --------------------- |
+| Small (fits)        | Long context            | **1.00** | 100%                  | 122,812                  | $0.062            | 3.3 s                 |
+| Small (fits)        | Naive RAG               | 0.83     | 90%                   | 3,665                    | $0.0005           | 2.2 s                 |
+| Small (fits)        | Tuned hybrid            | 0.95     | 100%                  | 3,258                    | $0.0005           | 1.9 s                 |
+| Small (fits)        | Tuned full (+ reranker) | 0.93     | 100%                  | 3,319                    | $0.0005           | 32.1 s                |
+| Large (doesn't fit) | Long context            | 0.21     | 10%                   | 176,915                  | $0.089            | 3.8 s                 |
+| Large (doesn't fit) | Naive RAG               | 0.78     | 82%                   | 3,697                    | $0.0005           | 2.4 s                 |
+| Large (doesn't fit) | Tuned hybrid            | 0.91     | 94%                   | 3,074                    | $0.0005           | 2.1 s                 |
+| Large (doesn't fit) | Tuned full (+ reranker) | **0.92** | 100%                  | 3,182                    | $0.0005           | 31.2 s                |
 
 \*For RAG: the correct file was among the 5 retrieved chunks (recall@5). For long context: the correct file fit inside the token budget.
 
@@ -141,3 +141,5 @@ Prompt caching for long context, agentic retrieval (letting the model decide whe
 ## Data
 
 The documentation belongs to the [Pydantic](https://github.com/pydantic/pydantic), [FastAPI](https://github.com/fastapi/fastapi), [SQLModel](https://github.com/fastapi/sqlmodel) and [Typer](https://github.com/fastapi/typer) projects. It's downloaded by `src/download.py` and not included in this repository.
+
+**[Watch the demo](https://www.linkedin.com/feed/update/urn:li:ugcPost:7521305922648944640/)**
